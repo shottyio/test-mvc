@@ -2,11 +2,17 @@
 
 namespace App\Controllers;
 
+use App\Models\User;
+
 class HomeController extends Controller
 {
     public function index()
     {
-        $this->view->render('home/index');
+        $user = new User();
+
+        $users = $user->fetchAll();
+
+        $this->view->render('home/index', ['users' => $users]);
     }
 
     public function show()
