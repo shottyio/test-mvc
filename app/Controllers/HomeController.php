@@ -10,7 +10,7 @@ class HomeController extends Controller
     {
         $user = new User();
 
-        $users = $user->fetchAll();
+        $users = $user->all();
 
         $this->view->render('home/index', ['users' => $users]);
     }

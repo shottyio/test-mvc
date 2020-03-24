@@ -1,2 +1,5 @@
 <?php
-var_dump('home/index.php');
+
+foreach ($users as $user) {
+    echo $user->email. PHP_EOL;
+}

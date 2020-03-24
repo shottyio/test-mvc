@@ -8,6 +8,8 @@ class Model
 {
     private $pdo;
 
+    protected $table;
+
     public function __construct()
     {
         $db = require __DIR__ . '/../config/db.php';
@@ -23,14 +25,18 @@ class Model
     {
         $query = $this->pdo->prepare($sql);
 
-        if ($params[':limit'] > 0) {
-            $query->bindValue(':start', (int)$params[':start'], PDO::PARAM_INT);
-            $query->bindValue(':limit', (int)$params[':limit'], PDO::PARAM_INT);
-            $query->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, false);
-        }
-
         $query->execute($params);
 
         return $query->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function all()
+    {
+        return $this->query("SELECT * FROM $this->table");
+    }
+
+    public function find($id)
+    {
+        return $this->query("SELECT * FROM $this->table WHERE id = :id", ['id' => $id]);
     }
 }
