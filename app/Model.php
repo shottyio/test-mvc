@@ -53,4 +53,29 @@ abstract class Model
         }
         return $getProperties;
     }
+
+    public function save()
+    {
+        $this->insert($this->getProperties());
+    }
+
+    private function insert(array $getProperties)
+    {
+        $properties = array_filter($getProperties);
+
+        $data = [];
+
+        $columns = [];
+
+        foreach ($properties as $column => $value) {
+            $data[$column] = $value;
+            $columns[] = ':' . $column;
+        }
+
+        $fields = implode(', ', array_keys($data));
+
+        $columns = implode(', ', $columns);
+
+        return $this->query("INSERT INTO " . $this->table() . " ($fields) VALUES ($columns)", $data);
+    }
 }

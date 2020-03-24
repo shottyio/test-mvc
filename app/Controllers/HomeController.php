@@ -12,9 +12,9 @@ class HomeController extends Controller
 
         $users = $user->all();
 
-        $user->email = 'shotty@gmail.com';
+        $user->email = 'test@gmail.com';
 
-        $user->password = 'tekken131';
+        $user->password = '123456';
 
         $user->save();
 
