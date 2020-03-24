@@ -12,6 +12,12 @@ class HomeController extends Controller
 
         $users = $user->all();
 
+        $user->email = 'shotty@gmail.com';
+
+        $user->password = 'tekken131';
+
+        $user->save();
+
         $this->view->render('home/index', ['users' => $users]);
     }
 

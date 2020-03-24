@@ -6,5 +6,12 @@ use App\Model;
 
 class User extends Model
 {
-    protected $table = 'users';
+    public $email;
+
+    public $password;
+
+    public function table()
+    {
+        return 'users';
+    }
 }

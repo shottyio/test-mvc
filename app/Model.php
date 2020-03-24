@@ -4,11 +4,9 @@ namespace App;
 
 use PDO;
 
-class Model
+abstract class Model
 {
     private $pdo;
-
-    protected $table;
 
     public function __construct()
     {
@@ -21,6 +19,8 @@ class Model
         }
     }
 
+    abstract protected function table();
+
     public function query($sql, $params = [])
     {
         $query = $this->pdo->prepare($sql);
@@ -32,11 +32,25 @@ class Model
 
     public function all()
     {
-        return $this->query("SELECT * FROM $this->table");
+        return $this->query("SELECT * FROM " . $this->table());
     }
 
     public function find($id)
     {
-        return $this->query("SELECT * FROM $this->table WHERE id = :id", ['id' => $id]);
+        return $this->query("SELECT * FROM " . $this->table() . " WHERE id = :id", ['id' => $id]);
+    }
+
+    public function getProperties()
+    {
+        $reflector = new \ReflectionObject($this);
+        $properties = $reflector->getProperties();
+
+        $getProperties = [];
+
+        foreach ($properties as $property) {
+            $propertyName = $property->getName();
+            $getProperties[$propertyName] = $this->$propertyName;
+        }
+        return $getProperties;
     }
 }
