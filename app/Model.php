@@ -6,24 +6,22 @@ use PDO;
 
 abstract class Model
 {
-    private $pdo;
+    abstract protected function table();
 
-    public function __construct()
+    private function connect()
     {
         $db = require __DIR__ . '/../config/db.php';
         try {
-            $this->pdo = new PDO($db['dsn'], $db['username'], $db['password']);
+            return $this->pdo = new PDO($db['dsn'], $db['username'], $db['password']);
         } catch (\PDOException $e) {
             print "Error!: " . $e->getMessage() . "<br/>";
             die();
         }
     }
 
-    abstract protected function table();
-
     public function query($sql, $params = [])
     {
-        $query = $this->pdo->prepare($sql);
+        $query = $this->connect()->prepare($sql);
 
         $query->execute($params);
 
@@ -76,6 +74,6 @@ abstract class Model
 
         $columns = implode(', ', $columns);
 
-        return $this->query("INSERT INTO " . $this->table() . " ($fields) VALUES ($columns)", $data);
+//        return $this->query("INSERT INTO " . $this->table() . " ($fields) VALUES ($columns)", $data);
     }
 }

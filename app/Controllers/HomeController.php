@@ -16,7 +16,7 @@ class HomeController extends Controller
 
         $user->password = '123456';
 
-        $user->save();
+//        $user->save();
 
         $this->view->render('home/index', ['users' => $users]);
     }
