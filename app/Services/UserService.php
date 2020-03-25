@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Helpers\Validator;
 
 class UserService
 {
@@ -13,13 +14,18 @@ class UserService
 
     public function register($data)
     {
-        if (!empty($data)) {
-//            echo '<pre>';
-//            print_r($_POST);
-//            echo '</pre>';
+        $validate = new Validator();
+
+        $fields = $validate->fields($data);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//            var_dump($validate->length($fields['password'], 5, 10));
+////            echo '<pre>';
+////            print_r($_POST);
+////            echo '</pre>';
             $user = new User();
-            $user->email = $data['email'];
-            $user->password = $data['password'];
+            $user->email = $fields['email'];
+            $user->password = $fields['password'];
             $user->save();
         }
     }

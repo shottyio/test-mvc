@@ -4,7 +4,7 @@
     <form method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label for="exampleInputEmail1">Login:</label>
-            <input type="email" name="login" class="form-control" placeholder="Login">
+            <input type="text" name="login" class="form-control" placeholder="Login">
             <small class="form-text text-muted">It could be your name.</small>
         </div>
         <div class="form-group">
