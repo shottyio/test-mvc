@@ -12,9 +12,9 @@ abstract class Model
     {
         $db = require __DIR__ . '/../config/db.php';
         try {
-            return $this->pdo = new PDO($db['dsn'], $db['username'], $db['password']);
+            return new PDO($db['dsn'], $db['username'], $db['password']);
         } catch (\PDOException $e) {
-            print "Error!: " . $e->getMessage() . "<br/>";
+            print $e->getMessage();
             die();
         }
     }
@@ -38,7 +38,7 @@ abstract class Model
         return $this->query("SELECT * FROM " . $this->table() . " WHERE id = :id", ['id' => $id]);
     }
 
-    public function getProperties()
+    private function getProperties()
     {
         $reflector = new \ReflectionObject($this);
         $properties = $reflector->getProperties();
