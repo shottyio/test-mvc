@@ -19,7 +19,7 @@ abstract class Model
         }
     }
 
-    public function query($sql, $params = [])
+    public function query($sql, array $params = [])
     {
         $query = $this->connect()->prepare($sql);
 
