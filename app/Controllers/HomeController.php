@@ -8,15 +8,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-            $user = new User();
+        $user = new User();
 
         $users = $user->all();
-
-        $user->email = 'test@gmail.com';
-
-        $user->password = '123456';
-
-        $user->save();
 
         $this->view->render('home/index', ['users' => $users]);
     }

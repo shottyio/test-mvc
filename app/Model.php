@@ -40,11 +40,6 @@ abstract class Model
 
     public function save()
     {
-        $this->insert();
-    }
-
-    private function insert()
-    {
         $data = [];
 
         $columns = [];
@@ -58,6 +53,6 @@ abstract class Model
 
         $columns = implode(', ', $columns);
 
-//        return $this->query("INSERT INTO " . $this->table() . " ($fields) VALUES ($columns)", $data);
+        return $this->query("INSERT INTO " . $this->table() . " ($fields) VALUES ($columns)", $data);
     }
 }

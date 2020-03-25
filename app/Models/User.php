@@ -9,6 +9,8 @@ class User extends Model
 {
     use Property;
 
+    protected $id;
+
     protected $email;
 
     protected $password;
