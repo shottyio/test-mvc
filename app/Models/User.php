@@ -6,9 +6,9 @@ use App\Model;
 
 class User extends Model
 {
-    public $email;
+    private $email;
 
-    public $password;
+    private $password;
 
     public function table()
     {

@@ -52,9 +52,17 @@ abstract class Model
         return $getProperties;
     }
 
+//    abstract public function properties();
+
+
+    public function __set($key, $value)
+    {
+       var_dump($key);
+    }
+
     public function save()
     {
-        $this->insert($this->getProperties());
+//        $this->insert($this->getProperties());
     }
 
     private function insert(array $getProperties)
