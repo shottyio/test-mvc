@@ -38,37 +38,20 @@ abstract class Model
         return $this->query("SELECT * FROM " . $this->table() . " WHERE id = :id", ['id' => $id]);
     }
 
-    private function getProperties()
-    {
-        $reflector = new \ReflectionObject($this);
-        $properties = $reflector->getProperties();
-
-        $getProperties = [];
-
-        foreach ($properties as $property) {
-            $propertyName = $property->getName();
-            $getProperties[$propertyName] = $this->$propertyName;
-        }
-        return $getProperties;
-    }
-
     public function save()
     {
-        print_r($this);
-//        $this->insert($this->getProperties());
+        $this->insert();
     }
 
-    private function insert(array $getProperties)
+    private function insert()
     {
-        $properties = array_filter($getProperties);
-
         $data = [];
 
         $columns = [];
 
-        foreach ($properties as $column => $value) {
-            $data[$column] = $value;
-            $columns[] = ':' . $column;
+        foreach ($this as $key => $value) {
+            $data[$key] = $value;
+            $columns[] = ':' . $key;
         }
 
         $fields = implode(', ', array_keys($data));

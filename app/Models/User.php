@@ -9,9 +9,9 @@ class User extends Model
 {
     use Property;
 
-    private $email;
+    protected $email;
 
-    private $password;
+    protected $password;
 
     public function table()
     {
