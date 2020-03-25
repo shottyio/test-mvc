@@ -8,6 +8,8 @@ class View
     {
         if(!empty($data))  extract($data);
 
+        include __DIR__ . '/../views/layout.php';
+
         include __DIR__ . '/../views/' . $view . '.php';
     }
 }
