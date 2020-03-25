@@ -30,4 +30,12 @@ class Validator
         }
         return $fields;
     }
+
+    public function empty($data)
+    {
+        foreach ($data as $key => $value) {
+            if (empty($value)) return false;
+        }
+        return true;
+    }
 }
